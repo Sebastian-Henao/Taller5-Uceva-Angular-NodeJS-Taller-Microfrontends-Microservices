@@ -8,7 +8,7 @@ function main(): void {
         publicPath: envs.PUBLIC_PATH,
         routes: AppRoutes.routes,
     });
-    server.start
+    server.start();
 }
 
 (async () => {

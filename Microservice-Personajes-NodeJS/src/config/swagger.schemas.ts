@@ -19,17 +19,17 @@
  *        nombre:
  *          type: string
  *          example: Loki
- *        alias
+ *        alias:
  *          type: string
  *          example: Dios de las mentiras
- *        juego
+ *        juego:
  *          type: string
  *          example: Marvel Rivals
- *        habilidad
+ *        habilidad:
  *          type: string
  *          example: Hechicero
- *        rol
- *          type string
+ *        rol:
+ *          type: string
  *          enum:
  *            - Vanguardia
  *            - Ladron

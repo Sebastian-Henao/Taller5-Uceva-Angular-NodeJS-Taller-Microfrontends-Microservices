@@ -8,7 +8,7 @@ export class PersonajesRoutes {
 
         /**
          * @openapi
-         * /api/personajes/{countPersonajes}
+         * /api/personajes/{countPersonajes}:
          *   get:
          *     summary: Obtener listado de personajes
          *     description: Retorna una lista de personajes generados dinamicamente segun la cantidad solicitada
@@ -16,11 +16,11 @@ export class PersonajesRoutes {
          *      - Personajes
          *     parameters:
          *      - in: path
-         *      - name: countPersonajes
+         *        name: countPersonajes
          *        required: true
          *        schema:
          *          type: integer
-         *          minimun: 1
+         *          minimum: 1
          *          example: 10
          *        description: Cantidad de personajes a generar 
          *     responses:

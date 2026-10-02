@@ -20,15 +20,20 @@ export class Server {
     }
 
     async start(): Promise<void> {
+        //* Middlewares
         this.app.use(cors());
         this.app.use(express.json());
-
+        
+        //* Public Folder
         this.app.use(express.static(this.publicPath));
 
+        //* Routes
         this.app.use(this.routes);
 
+        //* Swagger Docs
         this.app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
+        //* SPA
         this.app.use((req, res) => {
             res.sendFile(
                 path.join(__dirname, `../../${this.publicPath}/index.html`)
