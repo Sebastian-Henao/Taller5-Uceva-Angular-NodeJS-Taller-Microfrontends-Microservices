@@ -4,7 +4,7 @@ module.exports = withModuleFederationPlugin({
   name: 'mf-personajes',
   filename: "remoteEntry.js",
   exposes: {
-    './Component': './src/app/app.ts',
+    './PersonajesPage': './src/app/pages/personajes/personajes.page.ts',
   },
 
   shared: {
