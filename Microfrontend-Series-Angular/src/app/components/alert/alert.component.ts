@@ -41,7 +41,7 @@ export class AlertComponent {
    * Retorna la clase CSS del contenedor de la alerta.
    */
   getClass(): string {
-    const color = this.alertClassMap[this.alertState] ?? 'primary';
+    const color = this.alertClassMap[this.alertState];
     return `alert alert-${color} d-flex align-items-center justify-content-center py-3 my-4`;
   }
 }

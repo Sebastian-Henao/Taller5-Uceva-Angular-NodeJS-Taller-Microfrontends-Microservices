@@ -6,7 +6,9 @@ module.exports = {
     "src/app/**/*.ts",
     "!src/app/**/*.spec.ts",
     "!src/app/interfaces/**",
-    "!src/app/mocks/**"
+    "!src/app/mocks/**",
+    "!src/app/app.config.ts",
+    "!src/app/app.routes.ts"
   ],
   coverageThreshold: {
     global: {
