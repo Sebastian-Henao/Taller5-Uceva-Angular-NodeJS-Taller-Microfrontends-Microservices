@@ -10,6 +10,6 @@ export class PersonajesService {
   private httpClient = inject(HttpClient);
 
   getAllPersonajes(countPersonajes: number): Observable<Personaje[]> {
-    return this.httpClient.get<Personaje[]>(`http://localhost/3003/api/personajes/${countPersonajes}`);
+    return this.httpClient.get<Personaje[]>(`http://localhost:3003/api/personajes/${countPersonajes}`);
   }
 }

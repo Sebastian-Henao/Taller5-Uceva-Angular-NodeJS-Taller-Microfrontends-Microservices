@@ -1,1 +1,29 @@
-<p>personajes-table.component works!</p>
+<table class="table table-striped border">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Alias</th>
+            <th scope="col">Juego</th>
+            <th scope="col">Habilidad</th>
+            <th scope="col">Rol</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (personaje of personajes; track personaje) {
+            <tr>
+                <th scope="row">{{ personaje.id }}</th>
+                <td>{{ personaje.nombre }}</td>
+                <td>{{ personaje.alias }}</td>
+                <td>{{ personaje.juego }}</td>
+                <td>{{ personaje.habilidad }}</td>
+                <td>
+                    <dsb-badge-atom
+                        [text]="personaje.rol"
+                        [type]="categoryMap[personaje.rol]" >
+                    </dsb-badge-atom>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

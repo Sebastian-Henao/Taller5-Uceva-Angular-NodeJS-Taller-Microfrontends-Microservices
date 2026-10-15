@@ -1,1 +1,14 @@
-<p>personajes.page works!</p>
+@switch(state){
+
+    @case('loading'){
+        <app-alert alertState="loading" text="Cargando Personajes..."></app-alert>
+    }
+
+    @case('error'){
+        <app-alert alertState="error" text="Error al cargar los Personajes..."></app-alert>
+    }
+
+    @case('success'){
+        <app-personajes-table [personajes]="personajes"></app-personajes-table>
+    }
+}
