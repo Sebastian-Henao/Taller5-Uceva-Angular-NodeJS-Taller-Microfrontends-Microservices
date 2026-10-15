@@ -5,13 +5,28 @@ import cors from "cors";
 import path from "path";
 import swaggerUi from "swagger-ui-express";
 
+/**
+ * Clase que representa el servidor Express de la aplicacion
+ * 
+ * @remarks
+ * Esta clase centraliza la configuracion del servidor HTTP,
+ * incluyendo middlewares, rutas, documentacion Swagger y SPA
+ * 
+ * Se encarga de levantar la aplicacion y exponer todos los endpoints
+ */
 export class Server {
+    /** Instancia de Express */
     public readonly app = express();
 
     private readonly port: number;
     private readonly publicPath: string;
     private readonly routes: Router;
 
+    /**
+     * Crea una nueva instancia del servidor
+     * 
+     * @param options Configuracion del servidor
+     */
     constructor(options: Options) {
         const { port, publicPath, routes } = options;
         this.port = port;
@@ -19,6 +34,17 @@ export class Server {
         this.routes = routes;
     }
 
+    /**
+     * Inicializar y arranca el servidor
+     * 
+     * @remarks
+     * - Configura middlewares de CORS y JSON
+     * - Configura carpeta pública
+     * - Registra las rutas de la aplicación
+     * - Configura Swagger UI en `/api/docs`
+     * - Sirve SPA para rutas no encontradas
+     * - Escucha el puerto configurado
+     */
     async start(): Promise<void> {
         //* Middlewares
         this.app.use(cors());

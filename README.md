@@ -24,12 +24,14 @@ Puedes verificar Angular CLI en consola con: ```ng version```
 - Ubícate en la raíz del proyecto de Microfrontend-Products-Angular y ejecuta el comando: ```npm i```
 - Ubícate en la raíz del proyecto de Microservice-Users-NodeJS y ejecuta el comando: ```npm i```
 - Ubícate en la raíz del proyecto de Microservice-Products-NodeJS y ejecuta el comando: ```npm i```
+- Ubicate en la raiz del proyecto de Microservice-Personajes-NodeJS y ejecuta el comando ```npm i ```
 
 
 ### 2️⃣ Ejecutar los Proyectos
 
 - Ubícate en la raíz del proyecto de Microservice-Users-NodeJS y ejecuta el comando: ```npm run start```
 - Ubícate en la raíz del proyecto de Microservice-Products-NodeJS y ejecuta el comando: ```npm run start```
+- Ubicate en la raiz del proyecto de Microservice-Personajes-NodeJS y ejecuta el comando ```npm run start```
 - Ubícate en la raíz del proyecto de Microfrontend-Users-Angular y ejecuta el comando: ```npm run start```
 - Ubícate en la raíz del proyecto de Microfrontend-Products-Angular y ejecuta el comando: ```npm run start```
 - Ubícate en la raíz del proyecto de Client-Host-Angular y ejecuta el comando: ```npm run start```
@@ -46,6 +48,11 @@ Puedes verificar Angular CLI en consola con: ```ng version```
 - Corriendo en: ```http://localhost:3002```
 - Swagger API Docs: ```http://localhost:3002/api/docs```
 - API Products: ```http://localhost:3002/api/users/{countProducts}```
+
+### Microservice-Personajes-NodeJS
+- Corriendo en: ```http://localhost:3003```
+- Swagger API Docs: ```http://localhost:3003/api/docs```
+- API Personajes: ```http://localhost:3003/api/personajes/{countPersonaje}```
 
 #### Microfrontend-Users-Angular
 - Corriendo en: ```http://localhost:4201```
