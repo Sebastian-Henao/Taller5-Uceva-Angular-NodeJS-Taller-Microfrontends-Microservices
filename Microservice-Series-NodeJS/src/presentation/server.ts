@@ -2,6 +2,8 @@ import cors from "cors";
 import express, { Express, Router } from "express";
 import { Server as HttpServer } from "http";
 import path from "path";
+import swaggerUi from "swagger-ui-express";
+import { swaggerSpec } from "../config/swagger";
 import { CustomError } from "../domain/erros/custom.error";
 import { HandleError } from "../domain/erros/handle.error";
 import { Options } from "../domain/interfaces/server.interface";
@@ -10,14 +12,8 @@ import { Options } from "../domain/interfaces/server.interface";
  * Clase que representa el servidor Express del microservicio de series.
  *
  * @remarks
- * Centraliza middlewares (CORS, JSON), rutas, carpeta pública,
- * 404 para rutas de API inexistentes y manejo centralizado de errores.
- *
- * @example
- * ```ts
- * const server = new Server({ port: 3005, publicPath: 'public', routes, corsOrigins });
- * server.start();
- * ```
+ * Centraliza middlewares (CORS, JSON), rutas, documentación Swagger en `/api/docs`,
+ * carpeta pública, 404 para rutas de API inexistentes y manejo centralizado de errores.
  */
 export class Server {
   /** Instancia de Express */
@@ -44,15 +40,16 @@ export class Server {
   /**
    * Configura middlewares y rutas sin levantar el puerto.
    *
-   * @remarks
-   * Se separa de `start()` para poder probar la app con supertest.
-   *
    * @returns La aplicación Express configurada
    */
   configure(): Express {
     //* Middlewares
     this.app.use(cors({ origin: this.corsOrigins }));
     this.app.use(express.json());
+
+    //* Swagger UI (/api/docs y alias /api-docs)
+    this.app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+    this.app.get("/api-docs", (_req, res) => res.redirect("/api/docs"));
 
     //* Public Folder
     this.app.use(express.static(this.publicPath));
