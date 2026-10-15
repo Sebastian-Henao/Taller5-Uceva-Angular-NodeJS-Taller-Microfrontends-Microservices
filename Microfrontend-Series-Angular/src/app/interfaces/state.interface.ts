@@ -14,3 +14,12 @@ export type State =
   | 'success'
   /** Ocurrió un error durante el proceso */
   | 'error';
+
+/**
+ * Estados posibles para una alerta visual.
+ */
+export type AlertState =
+  /** Alerta de proceso en curso con spinner */
+  | 'loading'
+  /** Alerta de fallo o error */
+  | 'error';
