@@ -78,10 +78,11 @@ export class Server {
    *
    * @returns Servidor HTTP en ejecución
    */
-  start(): HttpServer {
+  start(callback?: () => void): HttpServer {
     this.configure();
     return this.app.listen(this.port, () => {
       console.log(`Microservice Series Running on Port ${this.port}`);
+      callback?.();
     });
   }
 }
