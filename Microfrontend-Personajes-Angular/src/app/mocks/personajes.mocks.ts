@@ -1,5 +1,8 @@
 import { Personaje } from "../interfaces/personajes.interface";
 
+/**
+ * Conjunto de datos de prueba (mock) para el módulo Personajes
+ */
 export const PERSONAJES_MOCK: Personaje[] = [
     {
         id: 1,
