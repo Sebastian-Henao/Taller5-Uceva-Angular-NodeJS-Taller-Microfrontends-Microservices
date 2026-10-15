@@ -52,6 +52,13 @@ export const routes: Routes = [
         }).then(m => m.ProductsPage),
     },
 
+    /**
+     * Ruta de personajes
+     * 
+     * @remarks
+     * Renderiza el componente `PersonajesPage`, encargado de 
+     * mostrar y gestionar el listado de personajes
+     */
     {
         path: 'personajes',
         loadComponent: () =>
