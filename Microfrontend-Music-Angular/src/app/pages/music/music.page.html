@@ -1,0 +1,81 @@
+<main class="music-page">
+  <header class="hero">
+    <div class="brand">
+      <span class="brand-icon" aria-hidden="true">♫</span>
+      <span>SONORA <span class="brand-divider">/</span> MUSIC</span>
+    </div>
+    <p class="eyebrow">TU ESPACIO, TU BANDA SONORA</p>
+    <h1>Encuentra el sonido<br /><span>que va contigo.</span></h1>
+    <p class="hero-copy">Explora una selección musical creada para descubrir algo nuevo.</p>
+    <div class="hero-orb hero-orb-one" aria-hidden="true"></div>
+    <div class="hero-orb hero-orb-two" aria-hidden="true"></div>
+  </header>
+
+  <section class="library" aria-labelledby="library-title">
+    <div class="library-heading">
+      <div>
+        <p class="eyebrow">HECHA PARA ESCUCHAR</p>
+        <h2 id="library-title">La biblioteca</h2>
+      </div>
+      @if (state === 'success') {
+        <span class="track-count">{{ tracks.length }} canciones</span>
+      }
+    </div>
+
+    <label class="search">
+      <span class="search-icon" aria-hidden="true">⌕</span>
+      <span class="visually-hidden">Buscar canciones</span>
+      <input
+        #searchInput
+        type="search"
+        placeholder="Busca por canción, artista, álbum o género"
+        [value]="searchTerm"
+        (input)="searchTerm = searchInput.value"
+      />
+      <span class="search-shortcut" aria-hidden="true">⌘ K</span>
+    </label>
+
+    @if (state === 'loading') {
+      <div class="notice" role="status">
+        <span class="loader" aria-hidden="true"></span>
+        <p>Cargando música...</p>
+      </div>
+    } @else if (state === 'error') {
+      <div class="notice notice-error" role="alert">
+        <span class="notice-symbol" aria-hidden="true">!</span>
+        <h3>No pudimos cargar la biblioteca</h3>
+        <p>Revisa que el servicio de música esté activo e inténtalo de nuevo.</p>
+        <button class="retry-button" type="button" (click)="loadTracks()">Volver a intentar</button>
+      </div>
+    } @else if (filteredTracks.length === 0) {
+      <div class="notice">
+        <span class="notice-symbol" aria-hidden="true">♪</span>
+        <h3>No encontramos canciones</h3>
+        <p>Prueba con otro término de búsqueda.</p>
+      </div>
+    } @else {
+      <div class="track-list" aria-label="Canciones">
+        @for (track of filteredTracks; track track.id; let index = $index) {
+          <article class="track-row">
+            <span class="track-index">{{ (index + 1) | number: '2.0-0' }}</span>
+            <div [class]="'cover cover-' + (index % 5)">
+              <span aria-hidden="true">♫</span>
+            </div>
+            <div class="track-main">
+              <h3>{{ track.title }}</h3>
+              <p>{{ track.artist }}</p>
+            </div>
+            <span class="track-album">{{ track.album }}</span>
+            <span class="track-genre">{{ track.genre }}</span>
+            <span class="track-year">{{ track.releasedYear }}</span>
+            <span class="track-duration">{{ (track.durationSeconds / 60) | number: '1.0-0' }} min</span>
+          </article>
+        }
+      </div>
+    }
+    <footer class="library-footer">
+      <span>CATÁLOGO SONORA</span>
+      <span>Una canción a la vez <span aria-hidden="true">♫</span></span>
+    </footer>
+  </section>
+</main>

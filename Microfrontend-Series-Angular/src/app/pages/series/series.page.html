@@ -1,0 +1,155 @@
+<section class="series-module-container py-4 px-3 px-md-5">
+  <!-- Header / Hero section -->
+  <div class="netflix-header d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4 pb-3 border-bottom border-danger">
+    <div>
+      <div class="d-flex align-items-center gap-2">
+        <span class="netflix-logo-badge">NETFLIX</span>
+        <h1 class="h3 fw-bold text-white mb-0">Catálogo de Series</h1>
+      </div>
+      <p class="text-white-50 mb-0 small">
+        Explora las series más populares, filtra por género y visualiza su ficha técnica.
+      </p>
+    </div>
+
+    <!-- Search Input -->
+    <div class="search-box position-relative">
+      <div class="input-group">
+        <input
+          type="text"
+          class="form-control bg-dark text-white border-secondary"
+          placeholder="Buscar por título..."
+          [(ngModel)]="searchTerm"
+          (keyup.enter)="onSearch()"
+          aria-label="Buscar serie"
+        />
+        @if (searchTerm) {
+          <button
+            class="btn btn-outline-secondary text-white"
+            type="button"
+            (click)="clearSearch()"
+            aria-label="Limpiar búsqueda"
+          >
+            <i class="bi bi-x"></i>
+          </button>
+        }
+        <button class="btn btn-danger" type="button" (click)="onSearch()">
+          <i class="bi bi-search"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Genre Filter -->
+  <app-genre-filter
+    [genres]="genres"
+    [selectedGenre]="selectedGenre"
+    (genreChange)="onGenreChange($event)"
+  ></app-genre-filter>
+
+  <!-- Total count & active status -->
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <span class="text-white-50 small">
+      @if (state === 'success') {
+        Mostrando {{ series.length }} de {{ totalSeries }} series
+        @if (selectedGenre) { en <strong>{{ selectedGenre }}</strong> }
+        @if (searchTerm) { para "<strong>{{ searchTerm }}</strong>" }
+      }
+    </span>
+    <button
+      class="btn btn-outline-secondary btn-sm text-light d-flex align-items-center gap-1"
+      (click)="loadSeries()"
+      title="Recargar catálogo"
+    >
+      <i class="bi bi-arrow-clockwise"></i> Recargar
+    </button>
+  </div>
+
+  <!-- States handling -->
+  @switch (state) {
+    @case ('loading') {
+      <app-alert
+        alertState="loading"
+        text="Cargando catálogo de series desde el microservicio (puerto 3005)..."
+      ></app-alert>
+    }
+
+    @case ('error') {
+      <div class="my-4">
+        <app-alert alertState="error" [text]="errorMessage"></app-alert>
+        <div class="text-center mt-2">
+          <button class="btn btn-danger btn-sm" (click)="loadSeries()">
+            <i class="bi bi-arrow-clockwise me-1"></i> Reintentar conexión
+          </button>
+        </div>
+      </div>
+    }
+
+    @case ('success') {
+      @if (series.length === 0) {
+        <div class="text-center py-5 my-5 border border-secondary rounded-3 bg-dark bg-opacity-50">
+          <i class="bi bi-film display-4 text-white-50 mb-3 d-block"></i>
+          <h4 class="text-white">No se encontraron series</h4>
+          <p class="text-white-50 mb-3">
+            Intenta con otro término de búsqueda o selecciona otro género.
+          </p>
+          <button class="btn btn-outline-danger btn-sm" (click)="clearSearch(); onGenreChange(null)">
+            Ver todas las series
+          </button>
+        </div>
+      } @else {
+        <!-- Grid of series cards -->
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 mb-4">
+          @for (serie of series; track serie.id) {
+            <div class="col">
+              <app-series-card
+                [serie]="serie"
+                (selectSerie)="openDetail($event)"
+              ></app-series-card>
+            </div>
+          }
+        </div>
+
+        <!-- Pagination Controls -->
+        @if (totalPages > 1) {
+          <nav aria-label="Paginación de series" class="d-flex justify-content-center mt-4">
+            <ul class="pagination pagination-dark">
+              <li class="page-item" [class.disabled]="currentPage === 1">
+                <button
+                  class="page-link bg-dark text-white border-secondary"
+                  (click)="goToPage(currentPage - 1)"
+                  [disabled]="currentPage === 1"
+                  aria-label="Página anterior"
+                >
+                  &laquo; Anterior
+                </button>
+              </li>
+              <li class="page-item active">
+                <span class="page-link bg-danger border-danger text-white">
+                  Página {{ currentPage }} de {{ totalPages }}
+                </span>
+              </li>
+              <li class="page-item" [class.disabled]="currentPage === totalPages">
+                <button
+                  class="page-link bg-dark text-white border-secondary"
+                  (click)="goToPage(currentPage + 1)"
+                  [disabled]="currentPage === totalPages"
+                  aria-label="Página siguiente"
+                >
+                  Siguiente &raquo;
+                </button>
+              </li>
+            </ul>
+          </nav>
+        }
+      }
+    }
+  }
+
+  <!-- Detail Modal -->
+  @if (selectedSerie) {
+    <app-series-detail
+      [serie]="selectedSerie"
+      (close)="closeDetail()"
+    ></app-series-detail>
+  }
+</section>

@@ -1,0 +1,37 @@
+<div class="card netflix-card h-100 text-light shadow-sm" (click)="onCardClick()" role="button" tabindex="0">
+  <div class="position-relative overflow-hidden card-img-wrapper">
+    <img
+      [src]="serie.posterUrl"
+      [alt]="serie.title"
+      class="card-img-top netflix-poster"
+      loading="lazy"
+    />
+    <div class="card-img-overlay d-flex flex-column justify-content-between p-2 overlay-gradient">
+      <span class="badge bg-danger align-self-start">{{ serie.ageRating }}</span>
+      <span class="badge bg-dark bg-opacity-75 align-self-end text-warning border border-warning">
+        ★ {{ serie.rating.toFixed(1) }}
+      </span>
+    </div>
+  </div>
+  <div class="card-body d-flex flex-column justify-content-between p-3 bg-dark">
+    <div>
+      <div class="d-flex justify-content-between align-items-center mb-1">
+        <span class="badge bg-secondary text-uppercase small">{{ serie.genre }}</span>
+        <span class="text-white-50 small">{{ serie.releaseYear }}</span>
+      </div>
+      <h5 class="card-title text-truncate text-white mb-1" [title]="serie.title">
+        {{ serie.title }}
+      </h5>
+      <p class="text-white-50 small mb-2">
+        {{ serie.seasons }} {{ serie.seasons === 1 ? 'temporada' : 'temporadas' }} • {{ serie.episodes }} eps
+      </p>
+    </div>
+    <button
+      type="button"
+      class="btn btn-outline-danger btn-sm w-100 mt-2 d-flex align-items-center justify-content-center gap-1"
+      (click)="onCardClick(); $event.stopPropagation()"
+    >
+      <i class="bi bi-info-circle"></i> Ver Detalle
+    </button>
+  </div>
+</div>

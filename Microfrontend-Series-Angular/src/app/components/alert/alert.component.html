@@ -1,0 +1,10 @@
+<div [class]="getClass()" role="alert">
+  @if (alertState === 'loading') {
+    <div class="spinner-border spinner-border-sm text-light me-2" role="status" aria-hidden="true"></div>
+  } @else {
+    <i class="bi bi-exclamation-triangle-fill me-2 fs-5"></i>
+  }
+  <div>
+    <strong>{{ text }}</strong>
+  </div>
+</div>
