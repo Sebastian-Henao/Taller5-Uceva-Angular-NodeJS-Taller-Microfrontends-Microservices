@@ -1,40 +1,75 @@
-# Sonora - Microfrontend de Música
+# Sonora: microfrontend de Música
 
-Microfrontend independiente de Angular para explorar una biblioteca de canciones generadas por el microservicio de música. Fue creado con Angular CLI `20.3.14` y configurado con Module Federation clásico de Webpack, siguiendo la guía [`../CREAR_MF.md`](../CREAR_MF.md).
+Microfrontend independiente creado con Angular CLI `20.3.14`. Presenta una biblioteca musical consumida exclusivamente desde el microservicio `Microservice-Music-NodeJS`.
+
+El proyecto usa Angular standalone, TypeScript estricto, SCSS y Module Federation clásico de Webpack. El scaffolding sigue los pasos de [`../CREAR_MF.md`](../CREAR_MF.md).
+
+## Arquitectura y responsabilidades
+
+| Parte | Responsabilidad |
+| --- | --- |
+| `MusicPage` | Carga y presenta canciones, estados de carga/error y búsqueda local. |
+| `MusicService` | Realiza la petición HTTP tipada a la API de música. |
+| `MusicTrack` | Define el contrato de los datos recibidos del backend. |
+| `app.routes.ts` | Muestra la biblioteca en la ruta raíz y redirige rutas desconocidas. |
+| `webpack.config.js` | Expone la página como `./MusicPage` para el Host. |
+
+### Flujo de datos
+
+1. Al iniciar `MusicPage`, `MusicService` solicita doce canciones.
+2. El microservicio genera canciones simuladas con Faker.js y responde JSON.
+3. La página presenta cada canción y actualiza el estado de carga.
+4. La búsqueda filtra en el cliente por título, artista, álbum y género, sin distinguir mayúsculas.
+
+El modelo `MusicTrack` contiene `id`, `title`, `artist`, `album`, `genre`, `releasedYear` y `durationSeconds`. La duración se recibe en segundos.
 
 ## Requisitos
 
 - Node.js y npm compatibles con Angular 20.
-- Microservicio de música ejecutándose en `http://localhost:3004`.
+- Dependencias instaladas con `npm install`.
+- Microservicio disponible en `http://localhost:3004`.
 
-## Ejecución independiente
+## Ejecutar con el Host
 
-Desde esta carpeta, instala dependencias y ejecuta:
+Desde la raíz del repositorio, inicia primero el microservicio:
 
-```bash
+```powershell
+cd Microservice-Music-NodeJS
+npm install
+npm run dev
+```
+
+En otra terminal, inicia el remote:
+
+```powershell
+cd Microfrontend-Music-Angular
 npm install
 npm start
 ```
 
-Abre `http://localhost:4204/`. La página consume `GET http://localhost:3004/api/music/tracks/12`.
+Finalmente, inicia `Client-Host-Angular` con `npm start` y abre `http://localhost:4200/music`.
 
-## Module Federation
+El microfrontend se sirve en `http://localhost:4204`. Su manifiesto de federación debe estar disponible en `http://localhost:4204/remoteEntry.js`.
 
-El Host obtiene la página expuesta como `./MusicPage` desde `http://localhost:4204/remoteEntry.js`. Inicia este microfrontend y el Host para navegar desde `/music`.
+## API consumida
 
-## Pruebas y cobertura
+`GET http://localhost:3004/api/music/tracks/12`
+
+El parámetro de cantidad admitido por el microservicio es un entero entre 1 y 50. Las respuestas y errores de transporte se mantienen explícitos: si el backend no está disponible, la página muestra un mensaje y permite reintentar.
+
+## Pruebas unitarias
 
 ```bash
 npm test
 npm run test:coverage
 ```
 
-La configuración de Jest exige más del 90 % de cobertura global para líneas, sentencias, funciones y ramas.
+Jest cubre el componente, el filtrado de canciones, estados de error y reintento, y el servicio HTTP (respuesta y propagación de errores). Se exige cobertura global mínima del 90 % para líneas, sentencias, funciones y ramas.
 
-## Documentación técnica
+## Documentación Compodoc
 
 ```bash
 npm run compodoc
 ```
 
-Compodoc genera la documentación en `documentation/`.
+La documentación HTML se genera en `documentation/`; abre `documentation/index.html`. El reporte de `documentation/coverage.html` debe marcar 100 % de cobertura documental y el comando falla si un símbolo o archivo incluido carece de documentación. El contenido generado se excluye de Git; el código fuente y sus comentarios JSDoc son la fuente de verdad.
