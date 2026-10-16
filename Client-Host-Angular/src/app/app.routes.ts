@@ -67,7 +67,6 @@ export const routes: Routes = [
                 exposedModule: './SeriesPage',
         }).then(m => m.SeriesPage),
     },
-
     /**
      * Ruta de personajes
      * 
@@ -83,6 +82,15 @@ export const routes: Routes = [
                 remoteEntry: 'http://localhost:4203/remoteEntry.js',
                 exposedModule: './PersonajesPage',
         }).then(m => m.PersonajesPage),
+    },
+    {
+        path: 'music',
+        loadComponent: () =>
+            loadRemoteModule({
+                type: 'module',
+                remoteEntry: 'http://localhost:4204/remoteEntry.js',
+                exposedModule: './MusicPage',
+        }).then(m => m.MusicPage),
     },
 
   /**

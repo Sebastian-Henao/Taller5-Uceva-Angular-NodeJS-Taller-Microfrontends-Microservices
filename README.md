@@ -1,85 +1,66 @@
-# 🧪 Taller: Microfrontends y Microservices en Angular y NodeJS
+# Taller: Microfrontends y Microservicios con Angular y Node.js
 
-- Este proyecto fue generado utilizando [Angular CLI](https://github.com/angular/angular-cli) 20.3.14.
+Proyecto académico de arquitectura cliente-servidor con microfrontends Angular integrados en un Host y microservicios Node.js que exponen sus funcionalidades mediante API REST. Los módulos disponibles incluyen usuarios, productos, personajes, música y series.
 
-- El objetivo del taller es practicar la creación de 2 proyectos para representar la arquitectura
-cliente servidor, con las Tecnologias de Angular y NodeJS.
+El scaffolding de nuevos microfrontends debe seguir los comandos descritos en [CREAR_MF.md](./CREAR_MF.md).
 
-## 📋 Requisitos Previos
+## Requisitos previos
 
-Antes de iniciar, asegúrate de tener instaladas las siguientes herramientas:
-
-- Node.js
-- npm
+- Node.js y npm
 - Angular CLI
 - Git
 - Visual Studio Code
 
-Puedes verificar Angular CLI en consola con: ```ng version```
+Verifica Angular CLI con `ng version`.
 
-### 1️⃣ Instalar Dependencias
+## Instalar dependencias
 
-- Ubícate en la raíz del proyecto de Client-Host-Angular y ejecuta el comando: ```npm i```
-- Ubícate en la raíz del proyecto de Microfrontend-Users-Angular y ejecuta el comando: ```npm i```
-- Ubícate en la raíz del proyecto de Microfrontend-Products-Angular y ejecuta el comando: ```npm i```
-- Ubicate en la raiz del proyecto de Microfrontend-Personajes-Angular y ejecuta el comando ```npm i```
-- Ubícate en la raíz del proyecto de Microservice-Users-NodeJS y ejecuta el comando: ```npm i```
-- Ubícate en la raíz del proyecto de Microservice-Products-NodeJS y ejecuta el comando: ```npm i```
-- Ubícate en la raíz del proyecto de Microservice-Series-NodeJS y ejecuta el comando: ```npm i```
-- Ubícate en la raíz del proyecto de Microfrontend-Series-Angular y ejecuta el comando: ```npm i```
-- Ubicate en la raiz del proyecto de Microservice-Personajes-NodeJS y ejecuta el comando ```npm i ```
+Ejecuta `npm install` en cada uno de estos proyectos:
 
+- `Client-Host-Angular`
+- `Microfrontend-Users-Angular`
+- `Microfrontend-Products-Angular`
+- `Microfrontend-Personajes-Angular`
+- `Microfrontend-Music-Angular`
+- `Microfrontend-Series-Angular`
+- `Microservice-Users-NodeJS`
+- `Microservice-Products-NodeJS`
+- `Microservice-Personajes-NodeJS`
+- `Microservice-Music-NodeJS`
+- `Microservice-Series-NodeJS`
 
-### 2️⃣ Ejecutar los Proyectos
+## Ejecutar los proyectos
 
-- Ubícate en la raíz del proyecto de Microservice-Users-NodeJS y ejecuta el comando: ```npm run start```
-- Ubícate en la raíz del proyecto de Microservice-Products-NodeJS y ejecuta el comando: ```npm run start```
-- Ubícate en la raíz del proyecto de Microservice-Series-NodeJS y ejecuta el comando: ```npm run start```
-- Ubícate en la raíz del proyecto de Microfrontend-Users-Angular y ejecuta el comando: ```npm run start```
-- Ubícate en la raíz del proyecto de Microfrontend-Products-Angular y ejecuta el comando: ```npm run start```
-- Ubícate en la raíz del proyecto de Microfrontend-Series-Angular y ejecuta el comando: ```npm run start```
-- Ubicate en la raiz del proyecto de Microservice-Personajes-NodeJS y ejecuta el comando ```npm run start```
-- Ubícate en la raíz del proyecto de Microfrontend-Users-Angular y ejecuta el comando: ```npm run start```
-- Ubícate en la raíz del proyecto de Microfrontend-Products-Angular y ejecuta el comando: ```npm run start```
-- Ubicate en la raiz del proyecto de Microfrontend-Personajes-Angular y ejecuta el comando ```npm run start```
-- Ubícate en la raíz del proyecto de Client-Host-Angular y ejecuta el comando: ```npm run start```
+Inicia cada proyecto en una terminal independiente:
 
+| Proyecto | Comando | Puerto |
+| --- | --- | --- |
+| `Microservice-Users-NodeJS` | `npm run start` | 3001 |
+| `Microservice-Products-NodeJS` | `npm run start` | 3002 |
+| `Microservice-Personajes-NodeJS` | `npm run start` | 3003 |
+| `Microservice-Music-NodeJS` | `npm run dev` | 3004 |
+| `Microservice-Series-NodeJS` | `npm run start` | 3005 |
+| `Microfrontend-Users-Angular` | `npm run start` | 4201 |
+| `Microfrontend-Products-Angular` | `npm run start` | 4202 |
+| `Microfrontend-Personajes-Angular` | `npm run start` | 4203 |
+| `Microfrontend-Music-Angular` | `npm run start` | 4204 |
+| `Microfrontend-Series-Angular` | `npm run start` | 4205 |
+| `Client-Host-Angular` | `npm run start` | 4200 |
 
-### 3️⃣ Verificar Funcionamiento de Proyectos
+## APIs y Module Federation
 
-#### Microservice-Users-NodeJS
-- Corriendo en: ```http://localhost:3001```
-- Swagger API Docs: ```http://localhost:3001/api/docs```
-- API Users: ```http://localhost:3001/api/users/{countUsers}```
+| Módulo | API REST / Swagger | Remote entry |
+| --- | --- | --- |
+| Usuarios | `http://localhost:3001/api/users/{countUsers}` · `/api/docs` | `http://localhost:4201/remoteEntry.js` |
+| Productos | `http://localhost:3002/api/products/{countProducts}` · `/api/docs` | `http://localhost:4202/remoteEntry.js` |
+| Personajes | `http://localhost:3003/api/personajes/{countPersonaje}` · `/api/docs` | `http://localhost:4203/remoteEntry.js` |
+| Música | `http://localhost:3004/api/music/tracks/{count}` · `/api/docs` | `http://localhost:4204/remoteEntry.js` |
+| Series | `http://localhost:3005/api/series` · `/api/docs` | `http://localhost:4205/remoteEntry.js` |
 
-#### Microservice-Products-NodeJS
-- Corriendo en: ```http://localhost:3002```
-- Swagger API Docs: ```http://localhost:3002/api/docs```
-- API Products: ```http://localhost:3002/api/users/{countProducts}```
+El Host está disponible en `http://localhost:4200`. Desde su navegación se accede a los microfrontends integrados.
 
-#### Microservice-Series-NodeJS
-- Corriendo en: ```http://localhost:3005```
-- Swagger API Docs: ```http://localhost:3005/api/docs```
-- API Series: ```http://localhost:3005/api/series```
-### Microservice-Personajes-NodeJS
-- Corriendo en: ```http://localhost:3003```
-- Swagger API Docs: ```http://localhost:3003/api/docs```
-- API Personajes: ```http://localhost:3003/api/personajes/{countPersonaje}```
+## Microfront de Música
 
-#### Microfrontend-Users-Angular
-- Corriendo en: ```http://localhost:4201```
-- RemoteEntry: ```http://localhost:4201/remoteEntry.js```
+En `Microfrontend-Music-Angular`, ejecuta `npm test` para las pruebas unitarias, `npm run test:coverage` para comprobar cobertura y `npm run compodoc` para generar la documentación técnica.
 
-#### Microfrontend-Products-Angular
-- Corriendo en: ```http://localhost:4202```
-- RemoteEntry: ```http://localhost:4202/remoteEntry.js```
-
-#### Microfrontend-Series-Angular
-- Corriendo en: ```http://localhost:4205```
-- RemoteEntry: ```http://localhost:4205/remoteEntry.js```
-### Microfrontend-Personajes-Angular
-- Corriendo en ```http://localhost:4203```
-- RemoteEntry: ```http://localhost:4203/remoteEntry.js```
-
-#### Client-Host-Angular
-- Corriendo en: ```http://localhost:4200```
+El microservicio de música genera datos simulados con Faker.js y documenta su API con Swagger/OpenAPI.
