@@ -1,0 +1,67 @@
+<div class="netflix-modal-backdrop" (click)="onClose()">
+  <div class="netflix-modal-content bg-dark text-light border border-secondary shadow-lg" (click)="$event.stopPropagation()">
+    <!-- Backdrop banner -->
+    <div class="position-relative detail-backdrop-wrapper">
+      <img
+        [src]="serie.backdropUrl"
+        [alt]="serie.title"
+        class="w-100 detail-backdrop-img"
+      />
+      <button
+        type="button"
+        class="btn btn-dark btn-close-custom text-white position-absolute top-0 end-0 m-3 rounded-circle"
+        (click)="onClose()"
+        aria-label="Cerrar"
+      >
+        <i class="bi bi-x-lg"></i>
+      </button>
+      <div class="backdrop-gradient-overlay position-absolute bottom-0 start-0 w-100 p-4">
+        <span class="badge bg-danger mb-2 text-uppercase">{{ serie.genre }}</span>
+        <h2 class="display-6 fw-bold text-white mb-0 text-shadow">{{ serie.title }}</h2>
+      </div>
+    </div>
+
+    <!-- Info body -->
+    <div class="p-4">
+      <div class="d-flex flex-wrap align-items-center gap-3 mb-3 text-white-50">
+        <span class="text-success fw-bold">★ {{ serie.rating.toFixed(1) }} / 10</span>
+        <span>{{ serie.releaseYear }}</span>
+        <span class="badge bg-secondary border border-light">{{ serie.ageRating }}</span>
+        <span>{{ serie.seasons }} {{ serie.seasons === 1 ? 'temporada' : 'temporadas' }}</span>
+        <span>{{ serie.episodes }} episodios</span>
+        <span class="badge" [class.bg-success]="serie.status === 'En emisión'" [class.bg-secondary]="serie.status === 'Finalizada'">
+          {{ serie.status }}
+        </span>
+        <span><i class="bi bi-geo-alt"></i> {{ serie.country }}</span>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-lg-8">
+          <h5 class="text-white fw-semibold mb-2">Sinopsis</h5>
+          <p class="lead fs-6 text-light lh-base">{{ serie.synopsis }}</p>
+        </div>
+
+        <div class="col-lg-4 border-start border-secondary ps-lg-4">
+          <h6 class="text-white-50 text-uppercase small fw-bold mb-2">Reparto</h6>
+          <div class="d-flex flex-wrap gap-1 mb-3">
+            @for (actor of serie.cast; track actor) {
+              <span class="badge bg-secondary bg-opacity-50 text-white">{{ actor }}</span>
+            }
+          </div>
+
+          <h6 class="text-white-50 text-uppercase small fw-bold mb-2">Género</h6>
+          <p class="text-white mb-3">{{ serie.genre }}</p>
+
+          <h6 class="text-white-50 text-uppercase small fw-bold mb-2">Identificador</h6>
+          <p class="text-white-50 mb-0">#{{ serie.id }}</p>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-end mt-4 pt-3 border-top border-secondary">
+        <button type="button" class="btn btn-outline-light px-4" (click)="onClose()">
+          <i class="bi bi-arrow-left me-1"></i> Volver al Catálogo
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

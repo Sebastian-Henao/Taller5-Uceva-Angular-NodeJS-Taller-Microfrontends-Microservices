@@ -1,0 +1,25 @@
+<div class="genre-filter-container d-flex flex-wrap gap-2 align-items-center mb-3">
+  <span class="text-white-50 fw-semibold me-2 d-none d-md-inline">
+    <i class="bi bi-funnel"></i> Género:
+  </span>
+  <button
+    type="button"
+    class="btn btn-sm"
+    [class.btn-danger]="selectedGenre === null"
+    [class.btn-outline-secondary]="selectedGenre !== null"
+    (click)="selectGenre(null)"
+  >
+    Todos
+  </button>
+  @for (genre of genres; track genre) {
+    <button
+      type="button"
+      class="btn btn-sm"
+      [class.btn-danger]="selectedGenre === genre"
+      [class.btn-outline-secondary]="selectedGenre !== genre"
+      (click)="selectGenre(genre)"
+    >
+      {{ genre }}
+    </button>
+  }
+</div>

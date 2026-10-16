@@ -51,6 +51,22 @@ export const routes: Routes = [
                 exposedModule: './ProductsPage',
         }).then(m => m.ProductsPage),
     },
+  /**
+   * Ruta de series de Netflix.
+   *
+   * @remarks
+   * Carga de forma perezosa el microfrontend remoto `mf-series`
+   * exponiendo el componente `SeriesPage` en el puerto 4205.
+   */
+    {
+        path: 'series',
+        loadComponent: () =>
+            loadRemoteModule({
+                type: 'module',
+                remoteEntry: 'http://localhost:4205/remoteEntry.js',
+                exposedModule: './SeriesPage',
+        }).then(m => m.SeriesPage),
+    },
 
     /**
      * Ruta de personajes
